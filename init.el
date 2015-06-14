@@ -118,6 +118,9 @@
 (unless (server-running-p)
   (server-start))
 
+;; personal settings
+(require 'impatient-mode)
+(require 'google-c-style)
 ;;----------------------------------------------------------------------------
 ;; Processing configure
 ;;----------------------------------------------------------------------------
@@ -143,6 +146,8 @@
   (interactive)
   (shell-command
    (concat ditaa-cmd " " buffer-file-name)))
+
+
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -166,10 +171,13 @@
 (add-hook 'after-init-hook
           (lambda ()
             (message "init completed in %.2fms"
-                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
-
+                     (sanityinc/time-subtract-millis after-init-time before-init-time))
+            )
+          )
 
 (provide 'init)
+;; material theme
+(load-theme 'material t)
 
 ;; Local Variables:
 ;; coding: utf-8
