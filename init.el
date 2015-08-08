@@ -124,9 +124,9 @@
 ;;----------------------------------------------------------------------------
 ;; Processing configure
 ;;----------------------------------------------------------------------------
-(setq processing-location "/opt/processing-2.2.1/processing-java")
-(setq processing-application-dir "/opt/processing-2.2.1/processing")
-(setq processing-sketchbook-dir "~/Documents/processing/sketchbook")
+;;(setq processing-location "/opt/processing-2.2.1/processing-java")
+;;(setq processing-application-dir "/opt/processing-2.2.1/processing")
+;;(setq processing-sketchbook-dir "~/Documents/processing/sketchbook")
 
 ;;----------------------------------------------------------------------------
 ;; Self keybindings
@@ -174,6 +174,8 @@
                      (sanityinc/time-subtract-millis after-init-time before-init-time))
             )
           )
+
+(require 'init-alpha)
 
 (provide 'init)
 ;; material theme
