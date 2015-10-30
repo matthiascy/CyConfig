@@ -15,11 +15,22 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 ;;----------------------------------------------------------------------------
+;; Temporarily reduce garbage collection during startup
+;;----------------------------------------------------------------------------
+(defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
+  "Initial value of `gc-cons-threshold' at start-up time.")
+(setq gc-cons-threshold (* 128 1024 1024))
+(add-hook 'after-init-hook
+          (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
+
+;;----------------------------------------------------------------------------
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-compat)
 (require 'init-utils)
 (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
+;; Calls (package-initialize)
 (require 'init-elpa)      ;; Machinery for installing required packages
 (require 'init-exec-path) ;; Set up $PATH
 
@@ -40,10 +51,9 @@
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
-;(require 'init-themes)
+(require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
-(require 'init-proxies)
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)
@@ -61,6 +71,8 @@
 (require 'init-mmm)
 
 (require 'init-editing-utils)
+(require 'init-whitespace)
+(require 'init-fci)
 
 (require 'init-vc)
 (require 'init-darcs)
@@ -82,6 +94,7 @@
 (require 'init-haml)
 (require 'init-python-mode)
 (require 'init-haskell)
+(require 'init-elm)
 (require 'init-ruby-mode)
 (require 'init-rails)
 (require 'init-sql)
@@ -89,8 +102,8 @@
 (require 'init-paredit)
 (require 'init-lisp)
 (require 'init-slime)
-(require 'init-clojure)
-(when (>= emacs-major-version 24)
+(unless (version<= emacs-version "24.2")
+  (require 'init-clojure)
   (require 'init-clojure-cider))
 (require 'init-common-lisp)
 
@@ -118,39 +131,10 @@
 (unless (server-running-p)
   (server-start))
 
-;; personal settings
-(require 'impatient-mode)
-(require 'google-c-style)
-;;----------------------------------------------------------------------------
-;; Processing configure
-;;----------------------------------------------------------------------------
-;;(setq processing-location "/opt/processing-2.2.1/processing-java")
-;;(setq processing-application-dir "/opt/processing-2.2.1/processing")
-;;(setq processing-sketchbook-dir "~/Documents/processing/sketchbook")
 
 ;;----------------------------------------------------------------------------
-;; Self keybindings
-;;----------------------------------------------------------------------------
-(global-set-key (kbd "C-c z") 'shell)
-
-;;----------------------------------------------------------------------------
-;; Org-mode
-;;----------------------------------------------------------------------------
-(setq org-src-fontify-natively t)
-(auto-image-file-mode t)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((ditaa, t))) ; this line activates ditaa
-(setq ditaa-cmd "java -jar ditaa0_9.jar")
-(defun ditaa-generate ()
-  (interactive)
-  (shell-command
-   (concat ditaa-cmd " " buffer-file-name)))
-
-
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
 
@@ -167,36 +151,15 @@
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
 (require 'init-locales)
+(require 'init-self)
 
 (add-hook 'after-init-hook
           (lambda ()
             (message "init completed in %.2fms"
-                     (sanityinc/time-subtract-millis after-init-time before-init-time))
-            )
-          )
+                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
 
-(require 'init-alpha)
-(require 'init-neotree)
-(require-package 'color-theme)
-(require-package 'lush-theme)
-(require-package 'csharp-mode)
-;;(require 'lush-theme)
-(global-linum-mode 1) ;always show line numbers
-(require-package 'multiple-cursors)
-(require-package 'yafolding)
-(require 'yafolding)
-(define-key yafolding-mode-map (kbd "<C-S-return>") nil)
-(define-key yafolding-mode-map (kbd "<C-M-return>") nil)
-(define-key yafolding-mode-map (kbd "<C-return>") nil)
-(define-key yafolding-mode-map (kbd "C-c <C-M-return>") 'yafolding-toggle-all)
-(define-key yafolding-mode-map (kbd "C-c <C-S-return>") 'yafolding-hide-parent-element)
-(define-key yafolding-mode-map (kbd "C-c <C-return>") 'yafolding-toggle-element)
-(require 'init-virtualenv)
 
 (provide 'init)
-;; material theme
-;(load-theme 'material t)
-
 
 ;; Local Variables:
 ;; coding: utf-8
