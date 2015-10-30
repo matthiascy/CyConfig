@@ -40,7 +40,7 @@
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
-(require 'init-themes)
+;(require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
 (require 'init-proxies)
@@ -176,10 +176,27 @@
           )
 
 (require 'init-alpha)
+(require 'init-neotree)
+(require-package 'color-theme)
+(require-package 'lush-theme)
+(require-package 'csharp-mode)
+;;(require 'lush-theme)
+(global-linum-mode 1) ;always show line numbers
+(require-package 'multiple-cursors)
+(require-package 'yafolding)
+(require 'yafolding)
+(define-key yafolding-mode-map (kbd "<C-S-return>") nil)
+(define-key yafolding-mode-map (kbd "<C-M-return>") nil)
+(define-key yafolding-mode-map (kbd "<C-return>") nil)
+(define-key yafolding-mode-map (kbd "C-c <C-M-return>") 'yafolding-toggle-all)
+(define-key yafolding-mode-map (kbd "C-c <C-S-return>") 'yafolding-hide-parent-element)
+(define-key yafolding-mode-map (kbd "C-c <C-return>") 'yafolding-toggle-element)
+(require 'init-virtualenv)
 
 (provide 'init)
 ;; material theme
-(load-theme 'material t)
+;(load-theme 'material t)
+
 
 ;; Local Variables:
 ;; coding: utf-8

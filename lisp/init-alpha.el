@@ -3,7 +3,7 @@
 ;;;     change frame's alpha value
 ;;; Code:
 (global-set-key [(f12)] 'change-alpha)
-(setq alpha-list '((100 100) (95 65) (85 55) (75 45) (65 35)))
+(setq alpha-list '((100 100) (86 75) (75 55) (65 35)))
 (defun change-alpha ()
   (interactive)
   (let ((h (car alpha-list)))
