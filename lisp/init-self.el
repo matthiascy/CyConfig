@@ -1,4 +1,8 @@
-(global-set-key (kbd "C-c z") 'shell)
+;;; init-self.el -- self initialize
+;;; Commentary:
+;;; Code:
+;;;(global-set-key (kbd "C-c z") 'shell)
+;;;(global-set-key (kbd "C-c s") 'shell-command)
 (global-linum-mode 1)
 
 (require-package 'color-theme)
@@ -31,11 +35,13 @@
 (require-package 'gh-md)
 (require 'gh-md)
 
-
 (require 'google-c-style)
 (require 'impatient-mode)
 (require 'init-alpha)
 (require 'init-neotree)
 (require 'init-cpp.el)
 
+(require 'init-rust)
+
 (provide 'init-self)
+;;; init-self ends here
