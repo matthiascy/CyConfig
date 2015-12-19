@@ -15,13 +15,6 @@
 (require-package 'cmake-project)
 (require 'cmake-project)
 
-(require-package 'yasnippet)
-(require 'yasnippet)
-(yas-global-mode t)
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-c <tab>") 'yas-expand)
-
 (require-package 'ecb)
 (require 'ecb)
 (global-set-key (kbd "C-x C-;") 'ecb-activate)
@@ -66,6 +59,8 @@
 /usr/local/include
 /usr/include
 ")))
+
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
 ;;;(setq ecb-layout-name 'left-dir-plus-speedbar)
 (require-package 'ggtags)

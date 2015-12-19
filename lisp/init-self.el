@@ -42,6 +42,7 @@
 (require 'init-cpp.el)
 
 (require 'init-rust)
+(require 'init-yasnippet)
 
 (provide 'init-self)
 ;;; init-self ends here
