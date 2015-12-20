@@ -43,6 +43,8 @@
 
 (require 'init-rust)
 (require 'init-yasnippet)
+(require-package 'graphviz-dot-mode)
+(require 'graphviz-dot-mode)
 
 (provide 'init-self)
 ;;; init-self ends here

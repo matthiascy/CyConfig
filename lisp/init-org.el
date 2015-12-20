@@ -347,7 +347,8 @@ typical word processor."
      (screen . nil)
      (,(if (locate-library "ob-sh") 'sh 'shell) . t)
      (sql . nil)
-     (sqlite . t))))
+     (sqlite . t)
+     (dot . t))))
 
 
 (provide 'init-org)
